@@ -28,6 +28,7 @@ import {
 } from './container-runtime.js';
 import { OneCLI } from '@onecli-sh/sdk';
 import { validateAdditionalMounts } from './mount-security.js';
+import { readEnvFile } from './env.js';
 import { RegisteredGroup } from './types.js';
 
 const onecli = new OneCLI({ url: ONECLI_URL, apiKey: ONECLI_API_KEY });
@@ -264,6 +265,13 @@ async function buildContainerArgs(
 
   // Pass host timezone so container's local time matches the user's
   args.push('-e', `TZ=${TIMEZONE}`);
+
+  // Todoist MCP — inject API token if configured
+  const todoistEnv = readEnvFile(['TODOIST_API_TOKEN']);
+  const todoistToken = todoistEnv.TODOIST_API_TOKEN;
+  if (todoistToken) {
+    args.push('-e', `TODOIST_API_TOKEN=${todoistToken}`);
+  }
 
   // OneCLI gateway handles credential injection — containers never see real secrets.
   // The gateway intercepts HTTPS traffic and injects API keys or OAuth tokens.

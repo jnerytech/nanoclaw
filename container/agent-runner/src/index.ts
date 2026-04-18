@@ -470,6 +470,7 @@ async function runQuery(
         'NotebookEdit',
         'mcp__nanoclaw__*',
         'mcp__gmail__*',
+        'mcp__todoist__*',
       ],
       env: sdkEnv,
       permissionMode: 'bypassPermissions',
@@ -489,6 +490,15 @@ async function runQuery(
           command: 'gmail-mcp',
           args: [],
         },
+        ...(process.env.TODOIST_API_TOKEN
+          ? {
+              todoist: {
+                command: 'todoist-mcp',
+                args: [],
+                env: { API_KEY: process.env.TODOIST_API_TOKEN },
+              },
+            }
+          : {}),
       },
       hooks: {
         PreCompact: [
