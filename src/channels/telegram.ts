@@ -336,7 +336,9 @@ export class TelegramChannel implements Channel {
       const emoji = ctx.message.sticker?.emoji || '';
       storeMedia(ctx, `[Sticker ${emoji}]`);
     });
-    this.bot.on('message:location', (ctx: any) => storeMedia(ctx, '[Location]'));
+    this.bot.on('message:location', (ctx: any) =>
+      storeMedia(ctx, '[Location]'),
+    );
     this.bot.on('message:contact', (ctx: any) => storeMedia(ctx, '[Contact]'));
 
     // Handle errors gracefully
