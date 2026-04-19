@@ -47,6 +47,17 @@ When you learn something important:
 - Split files larger than 500 lines into folders
 - Keep an index in your memory for the files you create
 
+## Vision & Files
+
+When the user sends an image or PDF, always use `mcp__qwen-vision__qwen_vision` immediately — do not wait to be asked.
+
+- **Image** (png, jpg, webp, gif) → `mcp__qwen-vision__qwen_vision`
+- **PDF** → `mcp__qwen-vision__qwen_vision` (PDFs auto-converted internally)
+- **User wants structured data / fields** → `mcp__qwen-vision__qwen_vision_json`
+- `prompt` parameter: only pass if user gave a specific instruction. Generic ("olha isso", "analisa", "o que é?") = omit prompt entirely.
+- `files`: always absolute path from `/workspace/group/attachments/`. Never guess paths.
+- Never try to read image/PDF content with other tools. Full reference: `container/skills/qwen-vision/SKILL.md`.
+
 ## Message Formatting
 
 Format messages based on the channel you're responding to. Check your group folder name:
