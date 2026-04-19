@@ -243,6 +243,13 @@ function buildVolumeMounts(
     readonly: false,
   });
 
+  // Mount qwen-cli so agent-runner can spawn qwen-mcp inside the container
+  mounts.push({
+    hostPath: '/home/ubuntu/repos/qwen-cli',
+    containerPath: '/opt/qwen-cli',
+    readonly: true,
+  });
+
   // Additional mounts validated against external allowlist (tamper-proof from containers)
   if (group.containerConfig?.additionalMounts) {
     const validatedMounts = validateAdditionalMounts(
@@ -267,10 +274,14 @@ async function buildContainerArgs(
   args.push('-e', `TZ=${TIMEZONE}`);
 
   // Todoist MCP — inject API token if configured
-  const todoistEnv = readEnvFile(['TODOIST_API_TOKEN']);
+  const todoistEnv = readEnvFile(['TODOIST_API_TOKEN', 'LITELLM_API_KEY']);
   const todoistToken = todoistEnv.TODOIST_API_TOKEN;
   if (todoistToken) {
     args.push('-e', `TODOIST_API_TOKEN=${todoistToken}`);
+  }
+  const litellmApiKey = todoistEnv.LITELLM_API_KEY;
+  if (litellmApiKey) {
+    args.push('-e', `LITELLM_API_KEY=${litellmApiKey}`);
   }
 
   // OneCLI gateway handles credential injection — containers never see real secrets.

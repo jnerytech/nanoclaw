@@ -471,6 +471,7 @@ async function runQuery(
         'mcp__nanoclaw__*',
         'mcp__gmail__*',
         'mcp__todoist__*',
+        'mcp__qwen-vision__*',
       ],
       env: sdkEnv,
       permissionMode: 'bypassPermissions',
@@ -499,6 +500,15 @@ async function runQuery(
               },
             }
           : {}),
+        'qwen-vision': {
+          command: 'node',
+          args: ['/opt/qwen-cli/dist/mcp-server.js'],
+          env: {
+            ...process.env,
+            LITELLM_BASE_URL: 'http://host.docker.internal:4010/v1',
+            LITELLM_API_KEY: process.env.LITELLM_API_KEY ?? '',
+          },
+        },
       },
       hooks: {
         PreCompact: [
