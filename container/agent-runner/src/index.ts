@@ -472,6 +472,7 @@ async function runQuery(
         'mcp__gmail__*',
         'mcp__todoist__*',
         'mcp__qwen-vision__*',
+        'mcp__tavily__*',
       ],
       env: sdkEnv,
       permissionMode: 'bypassPermissions',
@@ -509,6 +510,15 @@ async function runQuery(
             LITELLM_API_KEY: process.env.LITELLM_API_KEY ?? '',
           },
         },
+        ...(process.env.TAVILY_API_KEY
+          ? {
+              tavily: {
+                command: 'npx',
+                args: ['-y', 'tavily-mcp'],
+                env: { TAVILY_API_KEY: process.env.TAVILY_API_KEY },
+              },
+            }
+          : {}),
       },
       hooks: {
         PreCompact: [

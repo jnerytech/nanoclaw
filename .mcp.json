@@ -3,6 +3,13 @@
     "qwen-vision": {
       "command": "/home/ubuntu/.hermes/node/bin/qwen-mcp",
       "args": []
+    },
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "tavily-mcp"],
+      "env": {
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      }
     }
   }
 }

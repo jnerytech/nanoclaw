@@ -274,7 +274,7 @@ async function buildContainerArgs(
   args.push('-e', `TZ=${TIMEZONE}`);
 
   // Todoist MCP — inject API token if configured
-  const todoistEnv = readEnvFile(['TODOIST_API_TOKEN', 'LITELLM_API_KEY']);
+  const todoistEnv = readEnvFile(['TODOIST_API_TOKEN', 'LITELLM_API_KEY', 'TAVILY_API_KEY']);
   const todoistToken = todoistEnv.TODOIST_API_TOKEN;
   if (todoistToken) {
     args.push('-e', `TODOIST_API_TOKEN=${todoistToken}`);
@@ -282,6 +282,12 @@ async function buildContainerArgs(
   const litellmApiKey = todoistEnv.LITELLM_API_KEY;
   if (litellmApiKey) {
     args.push('-e', `LITELLM_API_KEY=${litellmApiKey}`);
+  }
+
+  // Tavily MCP / CLI — inject API key if configured
+  const tavilyApiKey = todoistEnv.TAVILY_API_KEY;
+  if (tavilyApiKey) {
+    args.push('-e', `TAVILY_API_KEY=${tavilyApiKey}`);
   }
 
   // OneCLI gateway handles credential injection — containers never see real secrets.
