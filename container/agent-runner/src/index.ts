@@ -513,9 +513,8 @@ async function runQuery(
         ...(process.env.TAVILY_API_KEY
           ? {
               tavily: {
-                command: 'npx',
-                args: ['-y', 'tavily-mcp'],
-                env: { TAVILY_API_KEY: process.env.TAVILY_API_KEY },
+                type: 'http' as const,
+                url: `https://mcp.tavily.com/mcp/?tavilyApiKey=${process.env.TAVILY_API_KEY}`,
               },
             }
           : {}),
