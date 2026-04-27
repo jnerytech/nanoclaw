@@ -1,0 +1,24 @@
+[
+  {
+    "id": "task-1776705165908-zkzm3i",
+    "group_folder": "telegram_main",
+    "chat_jid": "tg:605390177",
+    "prompt": "Busque todos os e-mails do Todoist na caixa de entrada (from:todoist.com OR from:notifications@todoist.com) usando o Gmail MCP.\n\nPara cada e-mail encontrado, avalie se é **muito importante** (ex: alertas de segurança, mudanças de plano, cobrança, cancelamento, violação de conta). E-mails de notificação de tarefa, lembretes, marketing e novidades NÃO são importantes.\n\nAções:\n1. Archive e marque como lido TODOS os e-mails do Todoist encontrados (removendo labels INBOX e UNREAD via batch_modify_emails).\n2. Se houver algum e-mail muito importante (segurança, cobrança, etc.), notifique o usuário com um resumo do que é importante.\n3. Se só havia notificações rotineiras e nada importante, envie uma mensagem discreta informando quantos e-mails foram arquivados. Se não havia nenhum e-mail do Todoist na inbox, não envie nenhuma mensagem.",
+    "schedule_type": "cron",
+    "schedule_value": "0 17 * * *",
+    "context_mode": "isolated",
+    "status": "active",
+    "created_at": "2026-04-20T17:12:46.693Z"
+  },
+  {
+    "id": "task-1777061762246-20ky5d",
+    "group_folder": "telegram_main",
+    "chat_jid": "tg:605390177",
+    "prompt": "Você é T-Bug, assistente do José Ângelo da Silva Nery.\n\n**Tarefa:** Verificar emails DEJESP na inbox, ler, baixar o PDF, analisar e enviar resumo.\n\n**Passos:**\n\n1. Buscar emails com `mcp__gmail__search_emails` → query: `label:dejesp in:inbox`\n2. Se não houver nenhum email, envie: \"📭 Nenhum email DEJESP hoje.\" e encerre.\n3. Para cada email encontrado:\n   a. Ler com `mcp__gmail__read_email`\n   b. Baixar o anexo PDF com `mcp__gmail__download_attachment` → salvar em `/workspace/group/attachments/` com nome `dejesp_<data>.pdf`\n   c. Marcar como lido com `mcp__gmail__modify_email` → `removeLabelIds: [\"UNREAD\"]`\n   d. Analisar o PDF com `mcp__qwen-vision__qwen_vision_markdown`:\n      - files: [caminho do PDF]\n      - prompt: \"Faça um resumo curto dos assuntos principais deste clipping do DEJESP. Em seguida, procure especificamente por menções ao nome 'JOSE ANGELO DA SILVA NERY' ou ao setor 'STI 1.4.5'. Se encontrar, cite o trecho exato. Se não encontrar, informe claramente.\"\n\n4. Enviar mensagem ao usuário com:\n   - 📋 Resumo curto dos assuntos do clipping (máximo 5 bullet points)\n   - ✅ ou ❌ se o nome/setor foi citado — se sim, incluir o trecho exato\n\n**Usuário:** José Ângelo da Silva Nery | **Setor:** STI 1.4.5 | **Label:** dejesp",
+    "schedule_type": "cron",
+    "schedule_value": "0 17 * * 1-5",
+    "context_mode": "isolated",
+    "status": "active",
+    "created_at": "2026-04-24T20:16:03.206Z"
+  }
+]

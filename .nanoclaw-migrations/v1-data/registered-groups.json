@@ -1,0 +1,16 @@
+[
+  {
+    "jid": "tg:605390177",
+    "name": "T-Bug",
+    "folder": "telegram_main",
+    "trigger_pattern": "@Andy",
+    "added_at": "2026-04-17T10:43:06.121Z",
+    "container_config": {
+      "additionalMounts": []
+    },
+    "requires_trigger": 0,
+    "is_main": true,
+    "inferred_channel_type": "telegram",
+    "inferred_is_group": 0
+  }
+]

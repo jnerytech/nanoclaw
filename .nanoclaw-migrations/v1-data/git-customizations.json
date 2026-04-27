@@ -1,0 +1,207 @@
+{
+  "head": "1150f7ead1eb41f9524871e33c5a914b5afc9123",
+  "merge_base": "a81e1651b5e48c9194162ffa2c50a22283d5ecd3",
+  "upstream_ref": "upstream/main",
+  "files": [
+    {
+      "path": ".claude/skills/setup/SKILL.md",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "path": ".claude/skills/setup/diagnostics.md",
+      "additions": 1,
+      "deletions": 49
+    },
+    {
+      "path": ".claude/skills/update-nanoclaw/SKILL.md",
+      "additions": 0,
+      "deletions": 6
+    },
+    {
+      "path": ".claude/skills/update-nanoclaw/diagnostics.md",
+      "additions": 1,
+      "deletions": 49
+    },
+    {
+      "path": ".github/workflows/bump-version.yml",
+      "additions": 0,
+      "deletions": 33
+    },
+    {
+      "path": ".github/workflows/update-tokens.yml",
+      "additions": 0,
+      "deletions": 43
+    },
+    {
+      "path": ".mcp.json",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "path": ".nanoclaw-migrations/channels.md",
+      "additions": 336,
+      "deletions": 0
+    },
+    {
+      "path": ".nanoclaw-migrations/claude-md.md",
+      "additions": 288,
+      "deletions": 0
+    },
+    {
+      "path": ".nanoclaw-migrations/container.md",
+      "additions": 151,
+      "deletions": 0
+    },
+    {
+      "path": ".nanoclaw-migrations/index.md",
+      "additions": 92,
+      "deletions": 0
+    },
+    {
+      "path": ".nanoclaw-migrations/mcps.md",
+      "additions": 167,
+      "deletions": 0
+    },
+    {
+      "path": "CLAUDE.md",
+      "additions": 57,
+      "deletions": 0
+    },
+    {
+      "path": "container/Dockerfile",
+      "additions": 7,
+      "deletions": 1
+    },
+    {
+      "path": "container/agent-runner/src/index.ts",
+      "additions": 34,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/qwen-vision/SKILL.md",
+      "additions": 65,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/SKILL.md",
+      "additions": 144,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/crawl.md",
+      "additions": 357,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/extract.md",
+      "additions": 249,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/integrations.md",
+      "additions": 717,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/research.md",
+      "additions": 315,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/sdk.md",
+      "additions": 397,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-best-practices/references/search.md",
+      "additions": 403,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-cli/SKILL.md",
+      "additions": 76,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-crawl/SKILL.md",
+      "additions": 100,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-dynamic-search/SKILL.md",
+      "additions": 457,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-extract/SKILL.md",
+      "additions": 80,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-map/SKILL.md",
+      "additions": 84,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-research/SKILL.md",
+      "additions": 100,
+      "deletions": 0
+    },
+    {
+      "path": "container/skills/tavily-search/SKILL.md",
+      "additions": 91,
+      "deletions": 0
+    },
+    {
+      "path": "groups/global/CLAUDE.md",
+      "additions": 68,
+      "deletions": 2
+    },
+    {
+      "path": "groups/main/CLAUDE.md",
+      "additions": 59,
+      "deletions": 4
+    },
+    {
+      "path": "package-lock.json",
+      "additions": 568,
+      "deletions": 8
+    },
+    {
+      "path": "package.json",
+      "additions": 5,
+      "deletions": 2
+    },
+    {
+      "path": "src/channels/gmail.test.ts",
+      "additions": 76,
+      "deletions": 0
+    },
+    {
+      "path": "src/channels/gmail.ts",
+      "additions": 372,
+      "deletions": 0
+    },
+    {
+      "path": "src/channels/index.ts",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": "src/channels/telegram.test.ts",
+      "additions": 1159,
+      "deletions": 0
+    },
+    {
+      "path": "src/channels/telegram.ts",
+      "additions": 442,
+      "deletions": 0
+    },
+    {
+      "path": "src/container-runner.ts",
+      "additions": 41,
+      "deletions": 0
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "merges": [
+    {
+      "branch": "skill/telegram",
+      "merge_commit": "892a9d655debf26636eec19a7c960c7e895760b9",
+      "v2_install": "/add-telegram"
+    },
+    {
+      "branch": "skill/telegram",
+      "merge_commit": "1d5167885ae1218c66e862eccdf90a08c50dc411",
+      "v2_install": "/add-telegram"
+    },
+    {
+      "branch": "skill/telegram",
+      "merge_commit": "99d7e87410d4549834adb1d52b670e4e9d032a86",
+      "v2_install": "/add-telegram"
+    },
+    {
+      "branch": "skill/telegram",
+      "merge_commit": "869171e55f810513260657e308d064d5da870743",
+      "v2_install": "/add-telegram"
+    },
+    {
+      "branch": "skill/telegram",
+      "merge_commit": "6f9c58fe850d021ca4dd40880fe097486fd28d16",
+      "v2_install": "/add-telegram"
+    }
+  ],
+  "user_authored_skill_dirs": [
+    "add-compact",
+    "add-discord",
+    "add-emacs",
+    "add-gmail",
+    "add-image-vision",
+    "add-karpathy-llm-wiki",
+    "add-macos-statusbar",
+    "add-ollama-tool",
+    "add-parallel",
+    "add-pdf-reader",
+    "add-reactions",
+    "add-slack",
+    "add-telegram",
+    "add-telegram-swarm",
+    "add-voice-transcription",
+    "add-whatsapp",
+    "channel-formatting",
+    "claw",
+    "convert-to-apple-container",
+    "customize",
+    "debug",
+    "get-qodo-rules",
+    "init-onecli",
+    "migrate-from-openclaw",
+    "migrate-nanoclaw",
+    "qodo-pr-resolver",
+    "setup",
+    "update-nanoclaw",
+    "update-skills",
+    "use-local-whisper",
+    "use-native-credential-proxy",
+    "x-integration"
+  ]
+}

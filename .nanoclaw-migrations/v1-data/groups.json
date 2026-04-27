@@ -1,0 +1,35 @@
+[
+  {
+    "folder": "global",
+    "has_claude_md": true,
+    "claude_md_bytes": 7087,
+    "files": [
+      "CLAUDE.md"
+    ]
+  },
+  {
+    "folder": "main",
+    "has_claude_md": true,
+    "claude_md_bytes": 13090,
+    "files": [
+      "CLAUDE.md"
+    ]
+  },
+  {
+    "folder": "telegram_main",
+    "has_claude_md": true,
+    "claude_md_bytes": 11563,
+    "files": [
+      "CLAUDE.md",
+      "attachments",
+      "comunicado_112_2026.pdf",
+      "conversations",
+      "dejesp_image002.png",
+      "dejesp_p1.png",
+      "dejesp_pdf_page1.png",
+      "dejesp_pdf_page2.png",
+      "logs",
+      "workflows"
+    ]
+  }
+]
