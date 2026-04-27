@@ -107,8 +107,8 @@ async function main(): Promise<void> {
     ...(fs.existsSync('/home/node/.gmail-mcp/credentials.json')
       ? {
           gmail: {
-            command: 'gmail-mcp',
-            args: [],
+            command: 'bun',
+            args: ['run', `${__dirname}/mcp-tools/gmail-server.ts`],
             env: {},
           },
         }
