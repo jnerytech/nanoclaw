@@ -269,7 +269,13 @@ function extractAttachmentFiles(
 
 /** Open the inbound DB for a session (host reads/writes). */
 export function openInboundDb(agentGroupId: string, sessionId: string): Database.Database {
-  const db = openInboundDbRaw(inboundDbPath(agentGroupId, sessionId));
+  const dir = sessionDir(agentGroupId, sessionId);
+  fs.mkdirSync(dir, { recursive: true });
+  const dbPath = inboundDbPath(agentGroupId, sessionId);
+  if (!fs.existsSync(dbPath)) {
+    ensureSchema(dbPath, 'inbound');
+  }
+  const db = openInboundDbRaw(dbPath);
   migrateMessagesInTable(db);
   return db;
 }
