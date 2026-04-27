@@ -44,28 +44,34 @@ export function getOutboundDb(): Database {
     _outbound.exec('PRAGMA journal_mode = DELETE');
     _outbound.exec('PRAGMA busy_timeout = 5000');
     _outbound.exec('PRAGMA foreign_keys = ON');
-    // Lightweight forward-compat: session_state was added after the initial
-    // v2 schema, so older session DBs don't have it. Create it on demand
-    // instead of requiring a formal migration pass. Also handle the case
-    // where an earlier revision of this table existed without updated_at —
-    // ALTER TABLE to add any missing columns.
+    // Full outbound schema — idempotent. Container is the sole writer, so it
+    // owns schema creation. This also covers recovery when the host creates a
+    // fresh session folder without calling initSessionFolder (e.g. after a
+    // data dir wipe with stale session rows still in the central DB).
     _outbound.exec(`
+      CREATE TABLE IF NOT EXISTS messages_out (
+        id             TEXT PRIMARY KEY,
+        seq            INTEGER UNIQUE,
+        in_reply_to    TEXT,
+        timestamp      TEXT NOT NULL,
+        deliver_after  TEXT,
+        recurrence     TEXT,
+        kind           TEXT NOT NULL,
+        platform_id    TEXT,
+        channel_type   TEXT,
+        thread_id      TEXT,
+        content        TEXT NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS processing_ack (
+        message_id     TEXT PRIMARY KEY,
+        status         TEXT NOT NULL,
+        status_changed TEXT NOT NULL
+      );
       CREATE TABLE IF NOT EXISTS session_state (
         key        TEXT PRIMARY KEY,
         value      TEXT NOT NULL,
         updated_at TEXT NOT NULL
       );
-    `);
-    const cols = new Set(
-      (_outbound.prepare("PRAGMA table_info('session_state')").all() as Array<{ name: string }>).map((c) => c.name),
-    );
-    if (!cols.has('updated_at')) {
-      _outbound.exec(`ALTER TABLE session_state ADD COLUMN updated_at TEXT NOT NULL DEFAULT ''`);
-    }
-    // container_state: tracks the current tool in flight (if any) so the host
-    // sweep can widen its stuck tolerance when Bash is running with a user-
-    // declared long timeout. Forward-compat for older outbound.db files.
-    _outbound.exec(`
       CREATE TABLE IF NOT EXISTS container_state (
         id                       INTEGER PRIMARY KEY CHECK (id = 1),
         current_tool             TEXT,
@@ -74,6 +80,12 @@ export function getOutboundDb(): Database {
         updated_at               TEXT NOT NULL
       );
     `);
+    const cols = new Set(
+      (_outbound.prepare("PRAGMA table_info('session_state')").all() as Array<{ name: string }>).map((c) => c.name),
+    );
+    if (!cols.has('updated_at')) {
+      _outbound.exec(`ALTER TABLE session_state ADD COLUMN updated_at TEXT NOT NULL DEFAULT ''`);
+    }
   }
   return _outbound;
 }
