@@ -184,8 +184,7 @@ class GmailChannelAdapter implements ChannelAdapter {
     const msg = await this.gmail.users.messages.get({ userId: 'me', id: messageId, format: 'full' });
 
     const headers = msg.data.payload?.headers ?? [];
-    const h = (name: string) =>
-      headers.find((hh) => hh.name?.toLowerCase() === name.toLowerCase())?.value ?? '';
+    const h = (name: string) => headers.find((hh) => hh.name?.toLowerCase() === name.toLowerCase())?.value ?? '';
 
     const from = h('From');
     const subject = h('Subject');
@@ -215,7 +214,11 @@ class GmailChannelAdapter implements ChannelAdapter {
     });
 
     try {
-      await this.gmail.users.messages.modify({ userId: 'me', id: messageId, requestBody: { removeLabelIds: ['UNREAD'] } });
+      await this.gmail.users.messages.modify({
+        userId: 'me',
+        id: messageId,
+        requestBody: { removeLabelIds: ['UNREAD'] },
+      });
     } catch (err) {
       log.warn('Gmail: failed to mark message as read', { messageId, err });
     }
