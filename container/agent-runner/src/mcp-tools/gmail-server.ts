@@ -224,5 +224,61 @@ server.tool(
   },
 );
 
+server.tool(
+  'list_attachments',
+  'List attachments in a Gmail message. Returns attachment name, mimeType, size, and attachmentId.',
+  { messageId: z.string().describe('Gmail message ID') },
+  async ({ messageId }) => {
+    const msg = (await gmailGet(`/users/me/messages/${messageId}?format=full`)) as {
+      payload: Part & { parts?: (Part & { filename?: string; body?: { attachmentId?: string; size?: number } })[] };
+    };
+
+    const attachments: { filename: string; mimeType: string; size: number; attachmentId: string }[] = [];
+    function collectAttachments(part: Part & { filename?: string; body?: { attachmentId?: string; size?: number } }): void {
+      if (part.filename && part.body?.attachmentId) {
+        attachments.push({
+          filename: part.filename,
+          mimeType: part.mimeType ?? '',
+          size: part.body.size ?? 0,
+          attachmentId: part.body.attachmentId,
+        });
+      }
+      for (const child of part.parts ?? []) collectAttachments(child as typeof part);
+    }
+    collectAttachments(msg.payload);
+
+    return { content: [{ type: 'text' as const, text: JSON.stringify(attachments, null, 2) }] };
+  },
+);
+
+server.tool(
+  'get_attachment',
+  'Download a Gmail attachment as base64. Use list_attachments first to get the attachmentId.',
+  {
+    messageId: z.string().describe('Gmail message ID'),
+    attachmentId: z.string().describe('Attachment ID from list_attachments'),
+    filename: z.string().describe('Filename (used to save to /tmp/<filename>)'),
+  },
+  async ({ messageId, attachmentId, filename }) => {
+    const data = (await gmailGet(
+      `/users/me/messages/${messageId}/attachments/${attachmentId}`,
+    )) as { data: string; size: number };
+
+    const base64 = data.data.replace(/-/g, '+').replace(/_/g, '/');
+    const filePath = `/tmp/${filename.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+    const buf = Buffer.from(base64, 'base64');
+    (await import('fs')).writeFileSync(filePath, buf);
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: JSON.stringify({ filePath, size: buf.length, message: `Saved to ${filePath}` }, null, 2),
+        },
+      ],
+    };
+  },
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
