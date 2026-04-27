@@ -5,6 +5,7 @@
  */
 import { ChildProcess, execSync, spawn } from 'child_process';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 
 import { OneCLI } from '@onecli-sh/sdk';
@@ -284,6 +285,12 @@ function buildMounts(
   const qwenCliPath = '/home/ubuntu/repos/qwen-cli';
   if (fs.existsSync(qwenCliPath)) {
     mounts.push({ hostPath: qwenCliPath, containerPath: '/opt/qwen-cli', readonly: true });
+  }
+
+  // Gmail MCP — OAuth credentials, mounted RO so the MCP server can auth.
+  const gmailCredDir = path.join(os.homedir(), '.gmail-mcp');
+  if (fs.existsSync(gmailCredDir)) {
+    mounts.push({ hostPath: gmailCredDir, containerPath: '/home/node/.gmail-mcp', readonly: true });
   }
 
   return mounts;

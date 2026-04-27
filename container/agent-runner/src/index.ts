@@ -104,6 +104,15 @@ async function main(): Promise<void> {
           },
         }
       : {}),
+    ...(fs.existsSync('/home/node/.gmail-mcp/credentials.json')
+      ? {
+          gmail: {
+            command: 'npx',
+            args: ['-y', '@gongrzhe/server-gmail-autoauth-mcp'],
+            env: {},
+          },
+        }
+      : {}),
   };
 
   for (const [name, serverConfig] of Object.entries(config.mcpServers)) {

@@ -58,6 +58,7 @@ const TOOL_ALLOWLIST = [
   'mcp__qwen-vision__*',
   'mcp__tavily__*',
   'mcp__todoist__*',
+  'mcp__gmail__*',
 ];
 
 interface SDKUserMessage {
